@@ -1,0 +1,33 @@
+{
+  "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=20, class_weight=balanced)",
+  "best_mean_f1": 0.3881870509394051,
+  "best_se": 0.01398016208841325,
+  "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+  "code_commit": "ca23c213ce91fe485065040ca72a71f67a598cb9",
+  "config_sha256": "b146964a49212398cf9542bc85e0f55aaccfe361275956f1ecca448c45dcf8eb",
+  "features": [
+    "ta",
+    "rh",
+    "vel",
+    "clo",
+    "posture"
+  ],
+  "libraries": {
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1"
+  },
+  "nanjing_manifest_sha256": "f5f46844836825bd83496b476c96526b3381e31ed80843ad3066f330a4903867",
+  "python": "3.12.10",
+  "selection_mean_f1": 0.3838598625254368,
+  "target": "sensation_class",
+  "training_days": [
+    "2025-06-30",
+    "2025-07-03",
+    "2025-07-04",
+    "2025-07-06",
+    "2025-07-07"
+  ],
+  "training_rows": 882
+}

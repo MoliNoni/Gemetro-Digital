@@ -1,0 +1,214 @@
+{
+  "always_neutral_accuracy": 0.6726973684210527,
+  "comparison_rows": 608,
+  "config_sha256": "b146964a49212398cf9542bc85e0f55aaccfe361275956f1ecca448c45dcf8eb",
+  "delta": 0.09028757039745566,
+  "delta_by_day": {
+    "2025-06-30": {
+      "delta": 0.12565500241014488,
+      "f1_ml": 0.40803515379786565,
+      "f1_pmv": 0.28238015138772077,
+      "rows": 39
+    },
+    "2025-07-03": {
+      "delta": 0.017173495487419588,
+      "f1_ml": 0.3963775430096674,
+      "f1_pmv": 0.3792040475222478,
+      "rows": 152
+    },
+    "2025-07-04": {
+      "delta": 0.11458831975189876,
+      "f1_ml": 0.37507453786523554,
+      "f1_pmv": 0.2604862181133368,
+      "rows": 164
+    },
+    "2025-07-06": {
+      "delta": 0.1134911521949194,
+      "f1_ml": 0.380231913517509,
+      "f1_pmv": 0.2667407613225896,
+      "rows": 132
+    },
+    "2025-07-07": {
+      "delta": 0.1612982238521554,
+      "f1_ml": 0.38127853881278534,
+      "f1_pmv": 0.21998031496062995,
+      "rows": 121
+    }
+  },
+  "delta_ci": {
+    "groups": 592,
+    "high": 0.1454995714586839,
+    "level": 0.95,
+    "low": 0.035300054380107165,
+    "replicates": 10000
+  },
+  "f1_macro_ml": 0.38939645357260594,
+  "f1_macro_pmv": 0.2991088831751503,
+  "ml": {
+    "accuracy": 0.4967105263157895,
+    "balanced_accuracy": 0.4018253721940885,
+    "confusion_matrix": {
+      "labels": [
+        "cool",
+        "neutral",
+        "warm"
+      ],
+      "rows_true_columns_predicted": [
+        [
+          37,
+          53,
+          24
+        ],
+        [
+          107,
+          240,
+          62
+        ],
+        [
+          20,
+          40,
+          25
+        ]
+      ]
+    },
+    "f1_macro": 0.38939645357260594,
+    "opposite_errors": 44,
+    "precision": {
+      "cool": 0.22560975609756098,
+      "neutral": 0.7207207207207207,
+      "warm": 0.22522522522522523
+    },
+    "recall": {
+      "cool": 0.32456140350877194,
+      "neutral": 0.58679706601467,
+      "warm": 0.29411764705882354
+    },
+    "rows": 608
+  },
+  "ml_on_iso_out_of_range_rows": {
+    "accuracy": 0.3467153284671533,
+    "balanced_accuracy": 0.4316086827237586,
+    "confusion_matrix": {
+      "labels": [
+        "cool",
+        "neutral",
+        "warm"
+      ],
+      "rows_true_columns_predicted": [
+        [
+          17,
+          9,
+          12
+        ],
+        [
+          41,
+          42,
+          94
+        ],
+        [
+          5,
+          18,
+          36
+        ]
+      ]
+    },
+    "f1_macro": 0.34543534440812124,
+    "label": "sin comparación posible con el PMV",
+    "opposite_errors": 17,
+    "precision": {
+      "cool": 0.2698412698412698,
+      "neutral": 0.6086956521739131,
+      "warm": 0.2535211267605634
+    },
+    "recall": {
+      "cool": 0.4473684210526316,
+      "neutral": 0.23728813559322035,
+      "warm": 0.6101694915254238
+    },
+    "rows": 274
+  },
+  "outer_folds": [
+    {
+      "best_by_mean": "logistic_regression(C=10.0, class_weight=balanced)",
+      "best_mean_f1": 0.374549908215175,
+      "best_se": 0.029002213946487602,
+      "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+      "chosen_mean_f1": 0.374549908215175,
+      "test_day": "2025-06-30"
+    },
+    {
+      "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=1, class_weight=balanced)",
+      "best_mean_f1": 0.36779901050612956,
+      "best_se": 0.014003845404916587,
+      "chosen": "random_forest(max_depth=None, min_samples_leaf=1, class_weight=balanced)",
+      "chosen_mean_f1": 0.36779901050612956,
+      "test_day": "2025-07-03"
+    },
+    {
+      "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=5, class_weight=balanced)",
+      "best_mean_f1": 0.38926521768409816,
+      "best_se": 0.014311003319967437,
+      "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+      "chosen_mean_f1": 0.38149980768917136,
+      "test_day": "2025-07-04"
+    },
+    {
+      "best_by_mean": "random_forest(max_depth=6, min_samples_leaf=20, class_weight=balanced)",
+      "best_mean_f1": 0.38939652976160977,
+      "best_se": 0.021396536292799525,
+      "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+      "chosen_mean_f1": 0.38068545156667694,
+      "test_day": "2025-07-06"
+    },
+    {
+      "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=5, class_weight=balanced)",
+      "best_mean_f1": 0.4063325341158685,
+      "best_se": 0.02067892426056318,
+      "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+      "chosen_mean_f1": 0.39838387222897337,
+      "test_day": "2025-07-07"
+    }
+  ],
+  "pmv": {
+    "accuracy": 0.3717105263157895,
+    "balanced_accuracy": 0.36410863920912595,
+    "confusion_matrix": {
+      "labels": [
+        "cool",
+        "neutral",
+        "warm"
+      ],
+      "rows_true_columns_predicted": [
+        [
+          75,
+          34,
+          5
+        ],
+        [
+          245,
+          144,
+          20
+        ],
+        [
+          45,
+          33,
+          7
+        ]
+      ]
+    },
+    "f1_macro": 0.2991088831751503,
+    "opposite_errors": 50,
+    "precision": {
+      "cool": 0.2054794520547945,
+      "neutral": 0.6824644549763034,
+      "warm": 0.21875
+    },
+    "recall": {
+      "cool": 0.6578947368421053,
+      "neutral": 0.35207823960880197,
+      "warm": 0.08235294117647059
+    },
+    "rows": 608
+  },
+  "verdict": "El ML supera al PMV"
+}

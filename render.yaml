@@ -1,0 +1,15 @@
+# Render Blueprint: the API as a Docker web service built from the root Dockerfile.
+services:
+  - type: web
+    name: gemetro-digital-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # Set in the Render dashboard to the Vercel frontend URL(s), comma separated,
+      # e.g. https://gemetro-digital.vercel.app
+      - key: GEMETRO_ALLOWED_ORIGINS
+        sync: false

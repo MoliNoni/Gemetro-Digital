@@ -1,0 +1,2 @@
+# Keep LF everywhere so artifact hashes are identical across platforms (P-29).
+* text=auto eol=lf

@@ -1,0 +1,47 @@
+# Data protection (PHASE_2_IMPLEMENTATION.md §5, barrier 1)
+# Raw and row-level data never enter version control.
+data/raw/
+data/interim/
+
+# Images and spreadsheets are never versioned, wherever they are.
+*.jpg
+*.jpeg
+*.JPG
+*.JPEG
+*.xlsx
+*.XLSX
+
+# Local tool state
+.codegraph/
+.atl/
+.claude/
+.gga/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+
+# Node / frontend
+node_modules/
+.vercel/
+frontend/dist/
+
+# Environment files (secrets and per-deployment settings); only the examples are versioned.
+.env
+.env.*
+!.env.example
+
+# Documentation is not versioned: every Markdown file, README included, stays local.
+*.md
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

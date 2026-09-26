@@ -1,0 +1,39 @@
+# I-12: preregistered evaluation configuration (PHASE_2_IMPLEMENTATION.md; PHASE_1_ARCHITECTURE.md §8).
+# Approved by the project direction on 2026-09-25. Committed before running E-02 and never
+# changed after seeing results.
+
+seed = 20250925
+classes = ["cool", "neutral", "warm"]
+features = ["ta", "rh", "vel", "clo", "posture"]
+group = "day"            # outer and inner leave-one-group-out (L-09)
+selection_metric = "f1_macro"  # computed on all clean rows of the validation day (L-10)
+class_weight = ["none", "balanced"]  # hyperparameter of every candidate; no synthetic rows
+
+[bootstrap]
+replicates = 10000
+interval = "percentile"
+level = 0.95
+resample_unit = "window_group"  # shared measurement window (same day, same logger window)
+
+# Candidates in declaration order; the order breaks exact ties deterministically.
+# Logistic regression is the interpretable reference: it wins when it is within one
+# standard error of the best mean inner F1 macro (L-08).
+
+[candidates.logistic_regression]
+preprocessing = "standardize numeric inputs; posture one-hot"
+max_iter = 5000
+C = [0.01, 0.1, 1.0, 10.0]
+
+[candidates.random_forest]
+preprocessing = "posture as 0/1; numeric inputs unscaled"
+n_estimators = 500
+max_depth = [3, 6, "none"]
+min_samples_leaf = [1, 5, 20]
+
+[candidates.gradient_boosting]
+estimator = "HistGradientBoostingClassifier"
+preprocessing = "posture as 0/1; numeric inputs unscaled"
+early_stopping = false
+learning_rate = [0.05, 0.1]
+max_depth = [2, 3]
+max_iter = [100, 300]

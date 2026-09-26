@@ -1,0 +1,910 @@
+/* Visual redesign V-03 (final pass, direction 2026-09-25): one fixed dark technical theme
+   (no light theme, no prefers-color-scheme branch) — Ableton-style organization, NASA/JPL
+   engineering, Bloomberg-style density, Linear cleanliness. Contiguous 1px-bordered panels,
+   corners at or below 2px, no shadows/gradients/pills, and a monospace stack for numeric
+   readouts. The wagon SVG stays the visual protagonist. */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #09090b;
+  --fg: #f4f4f5;
+  --muted: #a1a1aa;
+  --line: #27272a;
+  --card-bg: #18181b;
+  --panel-bg: #18181b;
+
+  /* Semantic tones (§12 of the original redesign, kept): exactly four states, restrained and
+     discreet — colored text/1px border/left rule, never a saturated filled background. "ok"
+     (normal) must never read as "the model is verified correct"; "warn" (amber) is a real
+     scientific state (out of domain/out of range), never a technical error; "error" (a
+     restrained red) is reserved for a real app/API failure; "muted" (gray) is "not
+     comparable"/secondary. */
+  --tone-ok-fg: #34d399;
+  --tone-warn-fg: #f59e0b;
+  --tone-error-fg: #f87171;
+  --tone-muted-fg: #a1a1aa;
+
+  /* Neutral active/selected fill — replaces the previous electric-blue accent everywhere
+     (buttons, segmented controls, selection fills, chart reference lines). Selected text
+     uses --fg (white), never a colored accent. */
+  --accent: #3f3f46;
+  --selected: var(--accent);
+
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+
+  --radius: 2px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 15px/1.5 system-ui, sans-serif;
+}
+
+.app-shell {
+  max-width: 1440px;
+  margin: 0 auto;
+  /* Bottom padding only clears the fixed help button (feedback round 6). */
+  padding: 12px 16px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Header: compact, title + subtitle + a discreet status badge (§2) */
+
+.app-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  /* Breathing room between the divider and the three columns (feedback round 7). */
+  margin-bottom: 8px;
+}
+
+.app-header-titles { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+
+/* Wordmark (feedback round 2, point 14): an engineering-instrument treatment that reuses the
+   app's own two-family type system instead of a new font. "Gemetro" is set in the sans at a
+   display-ish weight with slight negative tracking (Linear-style tight headings); "Digital"
+   is set in the same monospace stack the app already uses for numeric readouts, small,
+   uppercase and wide-tracked — the way Ableton/JPL instrument panels label a system name next
+   to its title, in a secondary color so it reads as a tag, not a second word of the name. */
+.app-header h1 { margin: 0; font-size: 1.3em; display: flex; align-items: baseline; gap: 8px; }
+.wordmark-main { font-weight: 600; letter-spacing: -0.02em; }
+.wordmark-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.app-subtitle { margin: 0; color: var(--muted); font-size: 0.9em; }
+
+.app-header-status { display: flex; align-items: center; gap: 8px; }
+
+/* Discreet: bordered text badge, not a filled pill (item 2: no saturated fills). */
+.status-badge-experimental {
+  display: inline-block;
+  border: 1px solid var(--tone-warn-fg);
+  color: var(--tone-warn-fg);
+  background: transparent;
+  border-radius: var(--radius);
+  padding: 2px 8px;
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* A real technical/API failure keeps a restrained red, discreet (border + text, no filled
+   saturated background). */
+.error {
+  background: var(--panel-bg);
+  color: var(--tone-error-fg);
+  border: 1px solid var(--tone-error-fg);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+}
+
+/* Three-column layout (§1): ~25% left / ~45% center / ~30% right on desktop. Sections are
+   assigned to a column with `grid-column` only (no `grid-row`); CSS Grid's default sparse
+   auto-placement then stacks same-column items into successive rows in document order,
+   which lets GuidedMode/SimulationMode each render several top-level fragments (controls,
+   wagon+results+conditions, charts) straight into the right column without needing a
+   physical wrapper `<div>` per column owned by App. Gaps are kept minimal so panels read as
+   contiguous, not as floating cards. */
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: 350px minmax(360px, 1.8fr) minmax(260px, 1.2fr);
+  /* Row 1 holds the mode switch; the center and right columns span both rows so their top
+     edge aligns with the mode switch instead of starting below it (feedback round 5). */
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+  align-items: start;
+}
+.layout-grid > .mode-switch-slot { grid-row: 1; }
+.layout-grid > .col-left:not(.mode-switch-slot) { grid-row: 2; }
+.layout-grid > .col-center,
+.layout-grid > .col-right { grid-row: 1 / span 2; }
+
+.col-left { grid-column: 1; display: flex; flex-direction: column; gap: 10px; }
+.col-center { grid-column: 2; display: flex; flex-direction: column; gap: 10px; transition: opacity 0.12s ease; }
+.col-right { grid-column: 3; display: flex; flex-direction: column; gap: 10px; }
+
+.col-center.is-updating { opacity: 0.6; }
+
+.loading-indicator {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .layout-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+  .col-left, .col-center, .col-right { grid-column: 1; }
+  .layout-grid > .col-left, .layout-grid > .col-center, .layout-grid > .col-right { grid-row: auto; }
+}
+
+/* Segmented controls (§1/§4): contiguous square cells sharing one 1px border, not floating
+   pills. Reused by the mode switch, the guided-mode Línea/Periodo groups and the
+   simulation-mode Línea/preset groups. Selected = the neutral active fill (never blue),
+   with white (--fg) text — never a colored accent. */
+
+.mode-switch,
+.line-select,
+.period-row,
+.preset-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  gap: 0;
+  background: var(--panel-bg);
+}
+
+.mode-button,
+.segmented-button,
+.period-button,
+.preset-button {
+  border: none;
+  border-right: 1px solid var(--line);
+  background: none;
+  color: var(--fg);
+  border-radius: 0;
+  padding: 6px 14px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  /* Cells share the group's full width, so the bordered box never shows an empty strip on
+     its right (feedback round 4). */
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.mode-button:last-child,
+.segmented-button:last-child,
+.period-button:last-child,
+.preset-button:last-child {
+  border-right: none;
+}
+
+.mode-button.is-selected,
+.segmented-button.is-selected,
+.period-button.is-selected,
+.preset-button.is-selected {
+  background: var(--accent);
+  color: var(--fg);
+}
+
+/* Guided-mode left controls: Línea (segmented), Periodo, hour strip */
+
+.guided-controls { }
+
+.field-label { margin: 4px 0 0; font-size: 0.8em; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; }
+
+/* One horizontal row, however many hours the period has (up to 7 for "Mañana") — never
+   wraps into a grid and never scrolls: chips shrink to fit the ~350px left column instead. */
+.hour-strip {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 3px;
+  width: 100%;
+}
+
+.hour-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex: 1 1 0;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--panel-bg);
+  color: var(--fg);
+  border-radius: var(--radius);
+  padding: 4px 1px;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1.15;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+/* Selected is the neutral active fill, clearly distinct from an out-of-domain chip's amber
+   border. */
+.hour-chip.is-selected { border-color: var(--accent); background: var(--accent); font-weight: 700; }
+
+/* An hour without coverage reads as a scientific/neutral state, never an app error: a
+   discreet amber border and a tiny two-line label — never a saturated fill, never red. */
+.hour-chip.is-out-of-domain { border-color: var(--tone-warn-fg); background: var(--panel-bg); }
+.hour-chip.is-out-of-domain .hour-chip-status { color: var(--tone-warn-fg); }
+
+/* Both states at once: the active fill still marks the selection, the amber border still
+   marks the scientific state — no extra ring/shadow needed to combine them. */
+.hour-chip.is-selected.is-out-of-domain {
+  background: var(--accent);
+  border-color: var(--tone-warn-fg);
+}
+
+/* Absolute minimum sizes from the visual QA round (round 3): hour label >= 12px, coverage
+   >= 11px, the 2-line "Fuera del dominio" between 9-10px. Set in px, not em, so a narrower
+   chip (more hours in a period) never shrinks them below the floor. */
+.hour-chip-hour { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; font-size: 12px; }
+.hour-chip-coverage { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--muted); white-space: nowrap; font-size: 11px; }
+
+/* Tiny, two-line amber label — wraps by width, not by an explicit line break, so the text
+   stays a single accessible string ("Fuera del dominio"). */
+.hour-chip-status {
+  display: block;
+  max-width: 100%;
+  padding: 0 2px;
+  white-space: normal;
+  text-align: center;
+  font-size: 9.5px;
+  line-height: 1.1;
+  margin-top: 1px;
+}
+
+
+/* Simulation-mode left controls (§10): "Controles principales" immediate, "Avanzado"
+   (Configuración avanzada) collapsible. */
+
+.scenario-controls { display: flex; flex-direction: column; gap: 12px; }
+
+.controls-heading { margin: 0; font-size: 0.95em; }
+
+/* Habitual controls (hour, τr) shown immediately, not behind "Configuración avanzada"
+   (visual QA fix round 3). */
+.main-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+.main-controls-grid label { display: flex; flex-direction: column; gap: 4px; font-size: 0.9em; }
+
+/* Every native <select> in the app (τr, postura — Línea is a segmented control, not a
+   <select>) follows the app's own dark theme instead of the browser's default white box. */
+select {
+  background: var(--panel-bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 4px 8px;
+  font: inherit;
+  /* Sized to its options, not stretched to the column (feedback round 4). */
+  align-self: flex-start;
+  width: auto;
+  min-width: 7em;
+}
+
+.select-with-tip { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Thin track, square thumb (§11) — plain CSS, no new dependency. */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  margin: 8px 0;
+  background: var(--line);
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 1px;
+  cursor: pointer;
+}
+input[type="range"]::-moz-range-track {
+  height: 2px;
+  background: var(--line);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 1px;
+  cursor: pointer;
+}
+input[type="checkbox"] { accent-color: var(--fg); }
+
+.custom-flag {
+  display: inline-block;
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--fg);
+  border-radius: var(--radius);
+  padding: 3px 8px;
+  font-size: 0.82em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.advanced-config summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 6px 0;
+  color: var(--muted);
+}
+
+.advanced-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  padding: 10px 0;
+}
+
+.advanced-grid label { display: flex; flex-direction: column; gap: 4px; font-size: 0.9em; }
+.advanced-toggle { flex-direction: row !important; align-items: center; gap: 8px !important; }
+
+/* Wagon block: the page's visual protagonist (§1/§4) */
+
+.wagon-block {
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.metro-car-visualization { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 100%; }
+
+/* The wagon is the protagonist (§1/§4): it fills the center column's width, only capped so
+   it never gets absurdly tall on a very wide right-hand column. */
+.metro-car { width: 100%; max-width: 900px; height: auto; }
+
+.mc-sky, .mc-body, .mc-interior-light, .mc-window { transition: fill 0.12s ease, opacity 0.12s ease; }
+.mc-figure { transition: opacity 0.12s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-sky, .mc-body, .mc-interior-light, .mc-window, .mc-figure { transition: none; }
+}
+
+/* Technical 1px strokes, clean geometry (§5). Door bars removed (feedback round 2, point 3):
+   they added no information the wagon needed to communicate. */
+.mc-body { fill: var(--card-bg); stroke: var(--line); stroke-width: 1; }
+.mc-window { fill: #2a2e33; stroke: var(--line); stroke-width: 1; }
+
+/* Fixed dark badge + white text: legible over every ambient background (madrugada/noche's
+   near-black sky included), independent of the period. */
+.mc-line-badge { fill: rgba(5, 6, 10, 0.72); }
+.mc-line-label { font-family: var(--font-mono); font-size: 12px; font-weight: 600; fill: #ffffff; }
+/* Schematic passengers (feedback round 2, point 11): filled human silhouettes (head +
+   shoulders/torso), a light neutral tone so they read against every period's muted interior
+   ambience, independent of the (now neutral, non-accent) active color. No stroke: the shape
+   itself, plus per-row opacity set inline (MetroCarVisualization.jsx), carries the depth. */
+.mc-figure-head, .mc-figure-body { fill: var(--fg); stroke: none; }
+
+.metro-car-visualization { position: relative; }
+
+/* Period ambience (feedback round 2, direction 2026-09-25, point 10): lightness-first —
+   brightness of the day is the signal, hue is only a hint, and no period is saturated or
+   uses the amber warning color (--tone-warn-fg). All five stay inside the app's zinc
+   palette (--line #27272a, --accent #3f3f46 and lighter/darker steps of the same family).
+   Mediodía is deliberately the brightest and most neutral (never dark blue); the others get
+   darker/desaturated by period without changing hue family enough to read as saturated
+   color. The data-period mechanism itself (from domain/wagon.js) is unchanged. */
+.metro-car-visualization[data-period="madrugada"] .mc-sky { fill: #0d0d10; }
+.metro-car-visualization[data-period="madrugada"] .mc-interior-light { fill: #16151a; opacity: 0.75; }
+.metro-car-visualization[data-period="madrugada"] .mc-window { fill: #131217; }
+
+.metro-car-visualization[data-period="manana"] .mc-sky { fill: #33383d; }
+.metro-car-visualization[data-period="manana"] .mc-interior-light { fill: #2c2f33; opacity: 0.9; }
+.metro-car-visualization[data-period="manana"] .mc-window { fill: #282b2f; }
+
+.metro-car-visualization[data-period="mediodia"] .mc-sky { fill: #52525b; }
+.metro-car-visualization[data-period="mediodia"] .mc-interior-light { fill: #48484f; opacity: 0.95; }
+.metro-car-visualization[data-period="mediodia"] .mc-window { fill: #3f3f46; }
+
+.metro-car-visualization[data-period="tarde"] .mc-sky { fill: #3a322b; }
+.metro-car-visualization[data-period="tarde"] .mc-interior-light { fill: #332c26; opacity: 0.9; }
+.metro-car-visualization[data-period="tarde"] .mc-window { fill: #2e2822; }
+
+.metro-car-visualization[data-period="noche"] .mc-sky { fill: #08080a; }
+.metro-car-visualization[data-period="noche"] .mc-interior-light { fill: #121115; opacity: 0.78; }
+.metro-car-visualization[data-period="noche"] .mc-window { fill: #0d0d10; }
+
+/* Secondary indicators around the wagon (§4) */
+
+.wagon-indicators {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px 16px;
+  width: 100%;
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.wagon-indicator { display: flex; flex-direction: column; gap: 0; }
+.wagon-indicator dt { font-size: 0.75em; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; }
+.wagon-indicator dd { margin: 0; font-weight: 600; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* Central results block (visual QA fix): ML and PMV side by side, and the ML/PMV
+   comparison as a full-width footer row — one cohesive bordered panel, not three orphan
+   cards. */
+
+.result-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: opacity 0.12s ease;
+  /* No `overflow: hidden` here (feedback round 2, point 15): it was clipping the PMV
+     heading's tooltip bubble whenever it would render past the panel's right edge, making it
+     look "covered" by whatever sat behind the clipped region. */
+}
+
+.result-panel.is-updating { opacity: 0.55; }
+
+.result-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.result-col { padding: 12px 16px; }
+.result-col.result-pmv { border-left: 1px solid var(--line); }
+
+.result-col h3 { margin: 0 0 6px; font-size: 0.95em; }
+/* The main result — the page's biggest, clearest number/label (§3/§6). */
+.result-col .value { font-size: 1.9em; font-weight: 700; margin: 2px 0; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.result-col .pmv-value { color: var(--muted); margin: 0; font-size: 0.95em; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.result-col .card-state { display: flex; align-items: center; gap: 4px; margin: 4px 0 0; }
+
+@media (max-width: 560px) {
+  .result-main { grid-template-columns: 1fr; }
+  .result-col.result-pmv { border-left: none; border-top: 1px solid var(--line); }
+}
+
+/* A status pill that is itself the tooltip trigger (visual QA fix): the wrapping <button>
+   from InfoTooltip must add no chrome of its own — only the badge inside it is visible, and
+   the button just adds the hover/focus/keyboard affordance. */
+.status-pill-tooltip .info-tooltip-trigger {
+  border: none;
+  background: none;
+  width: auto;
+  height: auto;
+  line-height: normal;
+  font-size: inherit;
+  padding: 0;
+  border-radius: var(--radius);
+  cursor: help;
+}
+
+/* Semantic status text: discreet colored text with a thin border, never a saturated filled
+   background (item 2). */
+.status {
+  display: inline-block;
+  border: 1px solid currentColor;
+  border-radius: var(--radius);
+  padding: 1px 8px;
+  font-size: 0.82em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  background: none;
+}
+.status-ok { color: var(--tone-ok-fg); }
+.status-warn { color: var(--tone-warn-fg); }
+.status-error { color: var(--tone-error-fg); }
+.status-muted { color: var(--tone-muted-fg); }
+
+/* Info tooltip + Provenance (hover/focus, mounted at all times, §8) */
+
+.info-tooltip { position: relative; display: inline-block; }
+
+.info-tooltip-trigger {
+  border: 1px solid var(--line);
+  background: var(--panel-bg);
+  color: var(--muted);
+  border-radius: var(--radius);
+  width: 15px;
+  height: 15px;
+  line-height: 13px;
+  font-size: 0.72em;
+  padding: 0;
+  cursor: help;
+  transition: border-color 0.12s ease, color 0.12s ease;
+}
+.info-tooltip-trigger:hover,
+.info-tooltip-trigger:focus { border-color: var(--muted); color: var(--fg); }
+
+.provenance-tooltip .info-tooltip-trigger {
+  width: 6px;
+  height: 6px;
+  font-size: 0;
+  border: none;
+  background: var(--muted);
+  border-radius: 1px;
+  opacity: 0.55;
+  transition: opacity 0.12s ease;
+}
+/* Provenance on demand: invisible until its row/heading is hovered, or the marker itself
+   is focused by keyboard — never a permanent marker next to every number. */
+.provenance-tooltip .info-tooltip-trigger { opacity: 0; }
+:is(.row, h3, dd):hover .provenance-tooltip .info-tooltip-trigger { opacity: 0.7; }
+.provenance-tooltip .info-tooltip-trigger:hover,
+.provenance-tooltip .info-tooltip-trigger:focus { opacity: 1; }
+
+.info-tooltip-bubble {
+  position: absolute;
+  /* Feedback round 2 (point 15): raised well above every panel's own content so it is never
+     covered, and reset to plain body typography — without this it inherited
+     text-transform/letter-spacing/font-weight from whatever labeled ancestor it sits in
+     (e.g. .field-label's uppercase), which is how the "Línea" tooltip ended up in caps. */
+  z-index: 40;
+  left: 0;
+  top: 20px;
+  width: 240px;
+  background: var(--card-bg);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  font-size: 0.85em;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* Tooltips in the right half of the center column, or in the right column itself, open
+   anchored to the right (feedback round 2, point 15) so they open inward instead of
+   extending further right, where they used to get clipped/covered. Known residual limit:
+   while a panel is dimmed mid-update (`.is-updating`, opacity < 1), that opacity creates its
+   own stacking context and traps any z-index set on a tooltip inside it — a transient,
+   low-impact edge case accepted rather than restructuring the dimming mechanism. */
+.result-pmv .info-tooltip-bubble,
+.col-right .info-tooltip-bubble,
+.conditions-group:last-child .info-tooltip-bubble {
+  left: auto;
+  right: 0;
+}
+
+/* Conditions panel: Exterior / Operación / Interior (§7) */
+
+.conditions-panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  /* Exterior and Interior stack in the left column, Operación (the tallest group) fills
+     the right one — no empty gap under Exterior (feedback round 4). */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "ext op" "int op";
+  grid-template-rows: auto 1fr;
+  gap: 14px 24px;
+  align-items: start;
+  transition: opacity 0.12s ease;
+}
+.conditions-panel > .conditions-group:nth-child(1) { grid-area: ext; }
+.conditions-panel > .conditions-group:nth-child(2) { grid-area: op; }
+.conditions-panel > .conditions-group:nth-child(3) { grid-area: int; }
+@media (max-width: 640px) {
+  .conditions-panel { grid-template-columns: 1fr; grid-template-areas: "ext" "op" "int"; }
+}
+
+.conditions-panel.is-updating { opacity: 0.55; }
+
+.conditions-group h4 {
+  margin: 0 0 4px;
+  font-size: 0.78em;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.conditions-group dl { margin: 0; }
+.conditions-group .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 3px 0;
+  font-size: 0.92em;
+}
+.conditions-group .row dt, .conditions-group .row dd { margin: 0; }
+.conditions-group .row dd { font-weight: 600; font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.conditions-note { margin: 6px 0 0; color: var(--muted); font-size: 0.82em; }
+
+.explanation { color: var(--muted); font-size: 0.9em; margin: 6px 0 0; }
+
+.retry-button {
+  border: 1px solid var(--tone-error-fg);
+  background: none;
+  color: inherit;
+  border-radius: var(--radius);
+  padding: 2px 10px;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* τr sensitivity chart + table, and daily profile chart (§11) */
+
+.sensitivity-chart, .daily-profile-chart {
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sensitivity-chart h3, .daily-profile-chart h3 { margin: 0; font-size: 0.92em; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.tau-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82em;
+}
+
+.tau-table th, .tau-table td {
+  text-align: left;
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.tau-table th { color: var(--muted); font-weight: 600; font-size: 0.9em; }
+
+.tau-table tr.is-selected { background: var(--accent); }
+/* Discreet left rule instead of a filled amber row (item 2: no saturated fills). */
+.tau-table tr.is-out-of-domain td:first-child { border-left: 2px solid var(--tone-warn-fg); }
+.tau-table tr.is-selected.is-out-of-domain td:first-child { border-left: 2px solid var(--tone-warn-fg); }
+
+/* Simulator-validity note goes on its own line inside the PMV cell so the row never
+   overflows the right column. */
+/* Inside the table the state is plain colored text: 1px row dividers already structure it. */
+.tau-table .status { border: none; padding: 0; font-weight: 500; }
+.tau-table .simulator-note { display: block; width: fit-content; margin-top: 3px; }
+
+.sensitivity-tau { font-weight: 600; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.sensitivity-tin { color: var(--muted); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* "¿Qué estoy viendo?" floating bubble + non-blocking popover (feedback round 2, point 2):
+   back to a fixed bottom-right circular bubble, not a header button — a flat dark popover,
+   no shadow, corners at or below --radius. The bubble itself is the one explicit exception
+   to the app's 2px-radius rule: the direction specifically asked for a small round
+   "burbuja". */
+
+.about-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 25;
+  border: 1px solid var(--line);
+  background: var(--panel-bg);
+  color: var(--fg);
+  border-radius: 16px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 0.82em;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.12s ease;
+}
+.about-fab:hover { border-color: var(--muted); }
+
+/* Opens above the bubble, never overlapping it (pill is ~30px + 20px offset from the
+   bottom edge). */
+.about-popover {
+  position: fixed;
+  right: 20px;
+  bottom: 64px;
+  z-index: 30;
+  width: min(380px, calc(100vw - 40px));
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 4px 16px 16px;
+}
+
+.about-popover-header {
+  position: sticky;
+  top: 0;
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.about-popover-header h3 { margin: 0; font-size: 1em; }
+
+.about-close {
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 1.2em;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.about-content { padding-top: 8px; }
+.about-section-title {
+  margin: 10px 0 6px;
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.about-panels { margin: 0; font-size: 0.86em; line-height: 1.4; }
+.about-panels dt { font-weight: 600; color: var(--fg); margin-top: 6px; }
+.about-panels dd { margin: 2px 0 0; color: var(--fg); }
+
+/* Trimmed to ~8 short bullets (visual QA fix) so the whole panel fits without scrolling. */
+.about-bullets {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--fg);
+  font-size: 0.86em;
+  line-height: 1.4;
+}
+
+@media (max-width: 1100px) {
+  .about-popover { right: 12px; left: 12px; width: auto; }
+}
+
+/* Footer: data and reference sources (feedback round 4). Secondary, compact, 1px divider —
+   the same technical-label language as the rest of the page. */
+.app-footer {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.8em;
+  line-height: 1.45;
+}
+.app-footer-title {
+  margin: 0 0 10px;
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.app-footer-group h3 { margin: 0 0 6px; font-size: 0.95em; font-weight: 600; color: var(--fg); }
+.app-footer-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px 24px;
+}
+.app-footer-group ul { margin: 0; padding-left: 14px; display: flex; flex-direction: column; gap: 3px; }
+.app-footer a, .about-content a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.12s ease, color 0.12s ease;
+}
+.app-footer a:hover, .about-content a:hover { color: var(--fg); text-decoration-color: var(--fg); }
+.app-footer-repo { margin: 12px 0 0; }
+
+/* Collapsible footer summary row (feedback round 5). */
+.app-footer-details > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--muted);
+  transition: color 0.12s ease;
+}
+.app-footer-details > summary::-webkit-details-marker { display: none; }
+.app-footer-details > summary:hover { color: var(--fg); }
+.app-footer-details > summary .app-footer-title { margin: 0; color: inherit; }
+.app-footer-chevron { width: 12px; height: 12px; transition: transform 0.12s ease; }
+.app-footer-details[open] .app-footer-chevron { transform: rotate(180deg); }
+.app-footer-details[open] > summary { margin-bottom: 10px; }
+
+/* GitHub link, top-right of the header. */
+.header-github {
+  display: inline-flex;
+  color: var(--muted);
+  transition: color 0.12s ease;
+}
+.header-github:hover, .header-github:focus-visible { color: var(--fg); }
+.header-github svg { width: 20px; height: 20px; }
+
+/* Arrow from the open "¿Qué estoy viendo?" panel down to its button. */
+.about-popover-tail {
+  position: fixed;
+  right: 48px;
+  bottom: 58px;
+  z-index: 31;
+  width: 12px;
+  height: 12px;
+  background: var(--card-bg);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transform: rotate(45deg);
+}
+
+/* Scroll hint inside the "¿Qué estoy viendo?" panel: sticks to the bottom edge of the
+   scrolling panel while more content remains below. */
+.about-scroll-hint {
+  position: sticky;
+  /* Negative offset = the popover's bottom padding, so the bar sits on the panel's real
+     bottom edge and no text shows underneath it. */
+  bottom: -16px;
+  display: flex;
+  justify-content: center;
+  margin: 0 -16px -16px;
+  padding: 10px 0 6px;
+  background: var(--card-bg);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  pointer-events: none;
+}
+.about-scroll-hint svg { width: 14px; height: 14px; }
+
+/* Guided-mode fixed parameters: same rows as the rest, under a small muted label. */
+.conditions-subhead {
+  margin: 8px 0 2px;
+  font-size: 0.72em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.conditions-fixed .row dt, .conditions-fixed .row dd { color: var(--muted); }

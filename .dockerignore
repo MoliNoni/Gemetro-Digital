@@ -1,0 +1,26 @@
+# Build context for the API image: only requirements.txt, src/ and artifacts/ are needed.
+.git
+.gitignore
+.gitattributes
+.venv
+.pytest_cache
+.ruff_cache
+.codegraph
+.atl
+.claude
+.gga
+**/__pycache__
+**/*.py[cod]
+
+# Never ship raw or row-level data, nor anything not read at runtime.
+data/
+reports/
+config/
+scripts/
+tests/
+odd/
+frontend/
+*.md
+
+.env
+.env.*

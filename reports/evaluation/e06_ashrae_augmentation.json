@@ -1,0 +1,208 @@
+{
+  "ashrae": {
+    "eligible_by_class": {
+      "cool": 20904,
+      "neutral": 35540,
+      "warm": 26990
+    },
+    "eligible_rows": 83434
+  },
+  "comparison_rows": 608,
+  "config_sha256": "b146964a49212398cf9542bc85e0f55aaccfe361275956f1ecca448c45dcf8eb",
+  "decision": "Descartado",
+  "decision_rule": "screening (E-04 rule): pooled delta > 0 and per-day delta > 0 on at least 4 of 5 days; robustness reruns and the publication/licence decision are out of scope for this script",
+  "result": {
+    "baseline_metrics": {
+      "accuracy": 0.4967105263157895,
+      "balanced_accuracy": 0.4018253721940885,
+      "confusion_matrix": {
+        "labels": [
+          "cool",
+          "neutral",
+          "warm"
+        ],
+        "rows_true_columns_predicted": [
+          [
+            37,
+            53,
+            24
+          ],
+          [
+            107,
+            240,
+            62
+          ],
+          [
+            20,
+            40,
+            25
+          ]
+        ]
+      },
+      "f1_macro": 0.38939645357260594,
+      "opposite_errors": 44,
+      "precision": {
+        "cool": 0.22560975609756098,
+        "neutral": 0.7207207207207207,
+        "warm": 0.22522522522522523
+      },
+      "recall": {
+        "cool": 0.32456140350877194,
+        "neutral": 0.58679706601467,
+        "warm": 0.29411764705882354
+      },
+      "rows": 608
+    },
+    "by_day": {
+      "2025-06-30": {
+        "delta": -0.03177252753523935,
+        "f1_macro": 0.3762626262626263,
+        "f1_macro_reference": 0.40803515379786565,
+        "improves": false,
+        "rows": 39
+      },
+      "2025-07-03": {
+        "delta": 0.07041440750321337,
+        "f1_macro": 0.46679195051288075,
+        "f1_macro_reference": 0.3963775430096674,
+        "improves": true,
+        "rows": 152
+      },
+      "2025-07-04": {
+        "delta": 0.008499932670548827,
+        "f1_macro": 0.38357447053578436,
+        "f1_macro_reference": 0.37507453786523554,
+        "improves": true,
+        "rows": 164
+      },
+      "2025-07-06": {
+        "delta": 0.04924750971116698,
+        "f1_macro": 0.429479423228676,
+        "f1_macro_reference": 0.380231913517509,
+        "improves": true,
+        "rows": 132
+      },
+      "2025-07-07": {
+        "delta": -0.017536589704982508,
+        "f1_macro": 0.36374194910780283,
+        "f1_macro_reference": 0.38127853881278534,
+        "improves": false,
+        "rows": 121
+      }
+    },
+    "days_improved": 3,
+    "delta": 0.029544619789254156,
+    "delta_across_days": {
+      "max": 0.07041440750321337,
+      "mean": 0.015770546528941463,
+      "min": -0.03177252753523935,
+      "std": 0.04338556686138503
+    },
+    "delta_ci": {
+      "groups": 592,
+      "high": 0.07032942595181074,
+      "level": 0.95,
+      "low": -0.011032487721754606,
+      "replicates": 10000
+    },
+    "f1_macro": 0.4189410733618601,
+    "f1_macro_across_days": {
+      "max": 0.46679195051288075,
+      "mean": 0.403970083929554,
+      "min": 0.36374194910780283,
+      "std": 0.04300959311537581
+    },
+    "f1_macro_reference": 0.38939645357260594,
+    "metrics": {
+      "accuracy": 0.5674342105263158,
+      "balanced_accuracy": 0.41800316746610283,
+      "confusion_matrix": {
+        "labels": [
+          "cool",
+          "neutral",
+          "warm"
+        ],
+        "rows_true_columns_predicted": [
+          [
+            31,
+            71,
+            12
+          ],
+          [
+            75,
+            291,
+            43
+          ],
+          [
+            18,
+            44,
+            23
+          ]
+        ]
+      },
+      "f1_macro": 0.4189410733618601,
+      "opposite_errors": 30,
+      "precision": {
+        "cool": 0.25,
+        "neutral": 0.7167487684729064,
+        "warm": 0.2948717948717949
+      },
+      "recall": {
+        "cool": 0.2719298245614035,
+        "neutral": 0.7114914425427873,
+        "warm": 0.27058823529411763
+      },
+      "rows": 608
+    },
+    "outer_folds": [
+      {
+        "ashrae_rows_outer_refit": 18866,
+        "best_by_mean": "logistic_regression(C=1.0, class_weight=balanced)",
+        "best_mean_f1": 0.40771956575168655,
+        "best_se": 0.027375911194142125,
+        "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+        "chosen_mean_f1": 0.40771956575168655,
+        "test_day": "2025-06-30"
+      },
+      {
+        "ashrae_rows_outer_refit": 18778,
+        "best_by_mean": "random_forest(max_depth=6, min_samples_leaf=20, class_weight=balanced)",
+        "best_mean_f1": 0.39814782518025005,
+        "best_se": 0.016339728256443767,
+        "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+        "chosen_mean_f1": 0.3820599561514137,
+        "test_day": "2025-07-03"
+      },
+      {
+        "ashrae_rows_outer_refit": 20455,
+        "best_by_mean": "gradient_boosting(learning_rate=0.05, max_depth=2, max_iter=100, class_weight=balanced)",
+        "best_mean_f1": 0.4513293766741331,
+        "best_se": 0.013471520565090154,
+        "chosen": "gradient_boosting(learning_rate=0.05, max_depth=2, max_iter=100, class_weight=balanced)",
+        "chosen_mean_f1": 0.4513293766741331,
+        "test_day": "2025-07-04"
+      },
+      {
+        "ashrae_rows_outer_refit": 19900,
+        "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=20, class_weight=balanced)",
+        "best_mean_f1": 0.38222747010536834,
+        "best_se": 0.023912559156977528,
+        "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+        "chosen_mean_f1": 0.3783733263663213,
+        "test_day": "2025-07-06"
+      },
+      {
+        "ashrae_rows_outer_refit": 17150,
+        "best_by_mean": "gradient_boosting(learning_rate=0.1, max_depth=2, max_iter=100, class_weight=balanced)",
+        "best_mean_f1": 0.4276337368992538,
+        "best_se": 0.016423069936556303,
+        "chosen": "gradient_boosting(learning_rate=0.1, max_depth=2, max_iter=100, class_weight=balanced)",
+        "chosen_mean_f1": 0.4276337368992538,
+        "test_day": "2025-07-07"
+      }
+    ],
+    "screening": "Descartado"
+  },
+  "seed": 20250925,
+  "training_rows": 882
+}

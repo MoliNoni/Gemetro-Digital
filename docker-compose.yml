@@ -1,0 +1,21 @@
+# Local full stack: API on http://localhost:8000, frontend on http://localhost:5500.
+# The frontend port matches the API's always-allowed local CORS origin
+# (gemetro.api.LOCAL_FRONTEND_ORIGIN), so no extra CORS setting is needed locally.
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # Extra allowed origins, comma separated (e.g. a deployed frontend URL).
+      GEMETRO_ALLOWED_ORIGINS: ${GEMETRO_ALLOWED_ORIGINS:-}
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:8000
+    ports:
+      - "5500:80"
+    depends_on:
+      - api

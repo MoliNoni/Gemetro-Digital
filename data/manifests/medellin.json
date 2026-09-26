@@ -1,0 +1,63 @@
+{
+  "files": [
+    {
+      "path": "afluencia_2025.xlsx",
+      "sha256": "75c4ab2c8cc7d30cec6a30e09cbb8cbed34ca2cc6f6f294bddfde71ee7d368e3",
+      "size": 478023
+    },
+    {
+      "path": "gtfs_2025.zip",
+      "sha256": "c1d8c5addb006b26fff052b42df65b5043939f4fd99f801abcccf9af8c936325",
+      "size": 2502530
+    },
+    {
+      "path": "ideam_humidity_0028_2025.csv",
+      "sha256": "f202706959a5517b9b34e2276f5fa238cd6eccb5abe4448258ed3b4b8983b837",
+      "size": 9279643
+    },
+    {
+      "path": "ideam_temperature_0071_2025.csv",
+      "sha256": "e7d843f6f3aca30a2e1f3eb3b0214b80f1fa32de43766bd115a0d0a99302b1b6",
+      "size": 9465652
+    }
+  ],
+  "root": "data/raw/medellin",
+  "sources": {
+    "afluencia_2025.xlsx": {
+      "arcgis_item": "d6bb62fc46db490db6f8783736969d15",
+      "retrieved": "2026-09-25",
+      "source": "S-03",
+      "url": "https://metrodemedellin.maps.arcgis.com/sharing/rest/content/items/c8524aafcc7743daa16e68d893b8a29d/data"
+    },
+    "gtfs_2025.zip": {
+      "arcgis_item": "929fbd2dbfbf493ab44935577e8fbff6",
+      "retrieved": "2026-09-25",
+      "source": "S-15",
+      "url": "https://www.arcgis.com/sharing/rest/content/items/929fbd2dbfbf493ab44935577e8fbff6/data"
+    },
+    "ideam_humidity_0028_2025.csv": {
+      "dataset": "uext-mhny",
+      "params": {
+        "$order": "fechaobservacion,:id",
+        "$select": "fechaobservacion,valorobservado,codigosensor",
+        "$where": "codigoestacion='0027015330' AND codigosensor='0028' AND fechaobservacion between '2025-01-01T05:00:00' and '2026-01-01T04:59:59.999'"
+      },
+      "retrieved": "2026-09-25",
+      "sensor": "0028",
+      "source": "S-04",
+      "url": "https://www.datos.gov.co/resource/uext-mhny.csv"
+    },
+    "ideam_temperature_0071_2025.csv": {
+      "dataset": "sbwg-7ju4",
+      "params": {
+        "$order": "fechaobservacion,:id",
+        "$select": "fechaobservacion,valorobservado,codigosensor",
+        "$where": "codigoestacion='0027015330' AND codigosensor='0071' AND fechaobservacion between '2025-01-01T05:00:00' and '2026-01-01T04:59:59.999'"
+      },
+      "retrieved": "2026-09-25",
+      "sensor": "0071",
+      "source": "S-04",
+      "url": "https://www.datos.gov.co/resource/sbwg-7ju4.csv"
+    }
+  }
+}

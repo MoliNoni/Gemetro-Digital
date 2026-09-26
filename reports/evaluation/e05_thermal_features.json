@@ -1,0 +1,1161 @@
+{
+  "baseline": {
+    "f1_macro": 0.38939645357260594,
+    "f1_macro_across_days": {
+      "max": 0.40803515379786565,
+      "mean": 0.3881995374006125,
+      "min": 0.37507453786523554,
+      "std": 0.013638001303340449
+    },
+    "f1_macro_by_day": {
+      "2025-06-30": 0.40803515379786565,
+      "2025-07-03": 0.3963775430096674,
+      "2025-07-04": 0.37507453786523554,
+      "2025-07-06": 0.380231913517509,
+      "2025-07-07": 0.38127853881278534
+    }
+  },
+  "candidates": [],
+  "comparison_rows": 608,
+  "config_sha256": "b146964a49212398cf9542bc85e0f55aaccfe361275956f1ecca448c45dcf8eb",
+  "decision_rule": "screening: pooled delta > 0 and per-day delta > 0 on at least 4 of 5 days; candidate only if screening also holds against the base features with seeds [20250926, 20250927]; improvement demonstrated only if the bootstrap interval low bound is also > 0",
+  "robustness": {},
+  "seed": 20250925,
+  "training_rows": 882,
+  "variants": {
+    "all": {
+      "added_features": [
+        "ta_x_rh",
+        "ta_x_vel",
+        "ta_x_clo",
+        "rh_x_vel",
+        "clo_x_standing",
+        "vapour_pressure",
+        "sqrt_vel"
+      ],
+      "by_day": {
+        "2025-06-30": {
+          "delta": -0.10701474563460034,
+          "f1_macro": 0.3010204081632653,
+          "f1_macro_reference": 0.40803515379786565,
+          "improves": false,
+          "rows": 39
+        },
+        "2025-07-03": {
+          "delta": -0.09349594287406265,
+          "f1_macro": 0.3028816001356047,
+          "f1_macro_reference": 0.3963775430096674,
+          "improves": false,
+          "rows": 152
+        },
+        "2025-07-04": {
+          "delta": 0.005753595997498473,
+          "f1_macro": 0.380828133862734,
+          "f1_macro_reference": 0.37507453786523554,
+          "improves": true,
+          "rows": 164
+        },
+        "2025-07-06": {
+          "delta": -0.015743380572478094,
+          "f1_macro": 0.3644885329450309,
+          "f1_macro_reference": 0.380231913517509,
+          "improves": false,
+          "rows": 132
+        },
+        "2025-07-07": {
+          "delta": -0.02124627424331571,
+          "f1_macro": 0.36003226456946963,
+          "f1_macro_reference": 0.38127853881278534,
+          "improves": false,
+          "rows": 121
+        }
+      },
+      "days_improved": 1,
+      "decision": "Descartado",
+      "delta": -0.02671689731506799,
+      "delta_across_days": {
+        "max": 0.005753595997498473,
+        "mean": -0.04634934946539167,
+        "min": -0.10701474563460034,
+        "std": 0.050459632890553406
+      },
+      "delta_ci": {
+        "groups": 592,
+        "high": -0.0006620070169318416,
+        "level": 0.95,
+        "low": -0.0536970966783185,
+        "replicates": 10000
+      },
+      "f1_macro": 0.36267955625753795,
+      "f1_macro_across_days": {
+        "max": 0.380828133862734,
+        "mean": 0.3418501879352209,
+        "min": 0.3010204081632653,
+        "std": 0.037242397195829814
+      },
+      "f1_macro_reference": 0.38939645357260594,
+      "improvement_demonstrated": false,
+      "metrics": {
+        "accuracy": 0.4917763157894737,
+        "balanced_accuracy": 0.3682008607500822,
+        "confusion_matrix": {
+          "labels": [
+            "cool",
+            "neutral",
+            "warm"
+          ],
+          "rows_true_columns_predicted": [
+            [
+              34,
+              60,
+              20
+            ],
+            [
+              103,
+              248,
+              58
+            ],
+            [
+              22,
+              46,
+              17
+            ]
+          ]
+        },
+        "f1_macro": 0.36267955625753795,
+        "opposite_errors": 42,
+        "precision": {
+          "cool": 0.2138364779874214,
+          "neutral": 0.7005649717514124,
+          "warm": 0.17894736842105263
+        },
+        "recall": {
+          "cool": 0.2982456140350877,
+          "neutral": 0.6063569682151589,
+          "warm": 0.2
+        },
+        "rows": 608
+      },
+      "outer_folds": [
+        {
+          "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=0.01, class_weight=balanced)",
+          "chosen_mean_f1": 0.36882389084112127,
+          "test_day": "2025-06-30"
+        },
+        {
+          "best_by_mean": "gradient_boosting(learning_rate=0.1, max_depth=3, max_iter=300, class_weight=none)",
+          "chosen": "gradient_boosting(learning_rate=0.1, max_depth=3, max_iter=300, class_weight=none)",
+          "chosen_mean_f1": 0.35335650053882806,
+          "test_day": "2025-07-03"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=5, class_weight=balanced)",
+          "chosen": "logistic_regression(C=0.1, class_weight=balanced)",
+          "chosen_mean_f1": 0.38892665083688305,
+          "test_day": "2025-07-04"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=20, class_weight=balanced)",
+          "chosen": "logistic_regression(C=0.1, class_weight=balanced)",
+          "chosen_mean_f1": 0.36544865703815604,
+          "test_day": "2025-07-06"
+        },
+        {
+          "best_by_mean": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3984437936849415,
+          "test_day": "2025-07-07"
+        }
+      ],
+      "screening": "Descartado"
+    },
+    "clo_x_standing": {
+      "added_features": [
+        "clo_x_standing"
+      ],
+      "by_day": {
+        "2025-06-30": {
+          "delta": 0.05552759923857159,
+          "f1_macro": 0.46356275303643724,
+          "f1_macro_reference": 0.40803515379786565,
+          "improves": true,
+          "rows": 39
+        },
+        "2025-07-03": {
+          "delta": 0.0029574215426884654,
+          "f1_macro": 0.39933496455235584,
+          "f1_macro_reference": 0.3963775430096674,
+          "improves": true,
+          "rows": 152
+        },
+        "2025-07-04": {
+          "delta": -0.027394440185137814,
+          "f1_macro": 0.3476800976800977,
+          "f1_macro_reference": 0.37507453786523554,
+          "improves": false,
+          "rows": 164
+        },
+        "2025-07-06": {
+          "delta": -0.005231913517509013,
+          "f1_macro": 0.375,
+          "f1_macro_reference": 0.380231913517509,
+          "improves": false,
+          "rows": 132
+        },
+        "2025-07-07": {
+          "delta": 0.004590354198964808,
+          "f1_macro": 0.38586889301175015,
+          "f1_macro_reference": 0.38127853881278534,
+          "improves": true,
+          "rows": 121
+        }
+      },
+      "days_improved": 3,
+      "decision": "Descartado",
+      "delta": 0.0006168138599053075,
+      "delta_across_days": {
+        "max": 0.05552759923857159,
+        "mean": 0.006089804255515608,
+        "min": -0.027394440185137814,
+        "std": 0.03043653915859947
+      },
+      "delta_ci": {
+        "groups": 592,
+        "high": 0.029691477700622727,
+        "level": 0.95,
+        "low": -0.028897369588366858,
+        "replicates": 10000
+      },
+      "f1_macro": 0.39001326743251125,
+      "f1_macro_across_days": {
+        "max": 0.46356275303643724,
+        "mean": 0.3942893416561282,
+        "min": 0.3476800976800977,
+        "std": 0.043126755371790525
+      },
+      "f1_macro_reference": 0.38939645357260594,
+      "improvement_demonstrated": false,
+      "metrics": {
+        "accuracy": 0.4769736842105263,
+        "balanced_accuracy": 0.41279383799159436,
+        "confusion_matrix": {
+          "labels": [
+            "cool",
+            "neutral",
+            "warm"
+          ],
+          "rows_true_columns_predicted": [
+            [
+              38,
+              48,
+              28
+            ],
+            [
+              112,
+              221,
+              76
+            ],
+            [
+              23,
+              31,
+              31
+            ]
+          ]
+        },
+        "f1_macro": 0.39001326743251125,
+        "opposite_errors": 51,
+        "precision": {
+          "cool": 0.21965317919075145,
+          "neutral": 0.7366666666666667,
+          "warm": 0.22962962962962963
+        },
+        "recall": {
+          "cool": 0.3333333333333333,
+          "neutral": 0.5403422982885085,
+          "warm": 0.36470588235294116
+        },
+        "rows": 608
+      },
+      "outer_folds": [
+        {
+          "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3741173782562512,
+          "test_day": "2025-06-30"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=20, class_weight=balanced)",
+          "chosen": "random_forest(max_depth=None, min_samples_leaf=20, class_weight=balanced)",
+          "chosen_mean_f1": 0.37896311362014,
+          "test_day": "2025-07-03"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=5, class_weight=balanced)",
+          "chosen": "logistic_regression(C=0.01, class_weight=balanced)",
+          "chosen_mean_f1": 0.39462249123642057,
+          "test_day": "2025-07-04"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=5, class_weight=balanced)",
+          "chosen": "logistic_regression(C=0.01, class_weight=balanced)",
+          "chosen_mean_f1": 0.38042228169085135,
+          "test_day": "2025-07-06"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=5, class_weight=balanced)",
+          "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.40770557489861636,
+          "test_day": "2025-07-07"
+        }
+      ],
+      "screening": "Descartado"
+    },
+    "rh_x_vel": {
+      "added_features": [
+        "rh_x_vel"
+      ],
+      "by_day": {
+        "2025-06-30": {
+          "delta": 0.02981795354676714,
+          "f1_macro": 0.4378531073446328,
+          "f1_macro_reference": 0.40803515379786565,
+          "improves": true,
+          "rows": 39
+        },
+        "2025-07-03": {
+          "delta": -0.022456944630864673,
+          "f1_macro": 0.3739205983788027,
+          "f1_macro_reference": 0.3963775430096674,
+          "improves": false,
+          "rows": 152
+        },
+        "2025-07-04": {
+          "delta": -0.001337164127861834,
+          "f1_macro": 0.3737373737373737,
+          "f1_macro_reference": 0.37507453786523554,
+          "improves": false,
+          "rows": 164
+        },
+        "2025-07-06": {
+          "delta": -0.01390712719272269,
+          "f1_macro": 0.3663247863247863,
+          "f1_macro_reference": 0.380231913517509,
+          "improves": false,
+          "rows": 132
+        },
+        "2025-07-07": {
+          "delta": -0.009152102031176113,
+          "f1_macro": 0.3721264367816092,
+          "f1_macro_reference": 0.38127853881278534,
+          "improves": false,
+          "rows": 121
+        }
+      },
+      "days_improved": 1,
+      "decision": "Descartado",
+      "delta": -0.010055159256865065,
+      "delta_across_days": {
+        "max": 0.02981795354676714,
+        "mean": -0.003407076887171634,
+        "min": -0.022456944630864673,
+        "std": 0.020089431410220737
+      },
+      "delta_ci": {
+        "groups": 592,
+        "high": 0.0137959430004451,
+        "level": 0.95,
+        "low": -0.03379562557837368,
+        "replicates": 10000
+      },
+      "f1_macro": 0.3793412943157409,
+      "f1_macro_across_days": {
+        "max": 0.4378531073446328,
+        "mean": 0.38479246051344096,
+        "min": 0.3663247863247863,
+        "std": 0.029821668796191848
+      },
+      "f1_macro_reference": 0.38939645357260594,
+      "improvement_demonstrated": false,
+      "metrics": {
+        "accuracy": 0.47368421052631576,
+        "balanced_accuracy": 0.3966285746486644,
+        "confusion_matrix": {
+          "labels": [
+            "cool",
+            "neutral",
+            "warm"
+          ],
+          "rows_true_columns_predicted": [
+            [
+              37,
+              48,
+              29
+            ],
+            [
+              116,
+              224,
+              69
+            ],
+            [
+              22,
+              36,
+              27
+            ]
+          ]
+        },
+        "f1_macro": 0.3793412943157409,
+        "opposite_errors": 51,
+        "precision": {
+          "cool": 0.21142857142857144,
+          "neutral": 0.7272727272727273,
+          "warm": 0.216
+        },
+        "recall": {
+          "cool": 0.32456140350877194,
+          "neutral": 0.5476772616136919,
+          "warm": 0.3176470588235294
+        },
+        "rows": 608
+      },
+      "outer_folds": [
+        {
+          "best_by_mean": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.37763125478578813,
+          "test_day": "2025-06-30"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=6, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "random_forest(max_depth=6, min_samples_leaf=1, class_weight=balanced)",
+          "chosen_mean_f1": 0.37374167543539766,
+          "test_day": "2025-07-03"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3925208423892537,
+          "test_day": "2025-07-04"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=6, min_samples_leaf=20, class_weight=balanced)",
+          "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.37769346932495995,
+          "test_day": "2025-07-06"
+        },
+        {
+          "best_by_mean": "logistic_regression(C=0.1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=0.1, class_weight=balanced)",
+          "chosen_mean_f1": 0.3961159069085711,
+          "test_day": "2025-07-07"
+        }
+      ],
+      "screening": "Descartado"
+    },
+    "sqrt_vel": {
+      "added_features": [
+        "sqrt_vel"
+      ],
+      "by_day": {
+        "2025-06-30": {
+          "delta": -0.08025737602008787,
+          "f1_macro": 0.3277777777777778,
+          "f1_macro_reference": 0.40803515379786565,
+          "improves": false,
+          "rows": 39
+        },
+        "2025-07-03": {
+          "delta": 0.007116406857010205,
+          "f1_macro": 0.4034939498666776,
+          "f1_macro_reference": 0.3963775430096674,
+          "improves": true,
+          "rows": 152
+        },
+        "2025-07-04": {
+          "delta": -0.002914827174382295,
+          "f1_macro": 0.37215971069085324,
+          "f1_macro_reference": 0.37507453786523554,
+          "improves": false,
+          "rows": 164
+        },
+        "2025-07-06": {
+          "delta": -0.021259569766144515,
+          "f1_macro": 0.3589723437513645,
+          "f1_macro_reference": 0.380231913517509,
+          "improves": false,
+          "rows": 132
+        },
+        "2025-07-07": {
+          "delta": 0.0,
+          "f1_macro": 0.38127853881278534,
+          "f1_macro_reference": 0.38127853881278534,
+          "improves": false,
+          "rows": 121
+        }
+      },
+      "days_improved": 1,
+      "decision": "Descartado",
+      "delta": -0.006186577029396068,
+      "delta_across_days": {
+        "max": 0.007116406857010205,
+        "mean": -0.019463073220720894,
+        "min": -0.08025737602008787,
+        "std": 0.03556086008628955
+      },
+      "delta_ci": {
+        "groups": 592,
+        "high": 0.01894170710041999,
+        "level": 0.95,
+        "low": -0.03164055451219764,
+        "replicates": 10000
+      },
+      "f1_macro": 0.38320987654320987,
+      "f1_macro_across_days": {
+        "max": 0.4034939498666776,
+        "mean": 0.3687364641798917,
+        "min": 0.3277777777777778,
+        "std": 0.028062684759162407
+      },
+      "f1_macro_reference": 0.38939645357260594,
+      "improvement_demonstrated": false,
+      "metrics": {
+        "accuracy": 0.4605263157894737,
+        "balanced_accuracy": 0.4077504514438212,
+        "confusion_matrix": {
+          "labels": [
+            "cool",
+            "neutral",
+            "warm"
+          ],
+          "rows_true_columns_predicted": [
+            [
+              38,
+              49,
+              27
+            ],
+            [
+              127,
+              210,
+              72
+            ],
+            [
+              21,
+              32,
+              32
+            ]
+          ]
+        },
+        "f1_macro": 0.38320987654320987,
+        "opposite_errors": 48,
+        "precision": {
+          "cool": 0.20430107526881722,
+          "neutral": 0.7216494845360825,
+          "warm": 0.24427480916030533
+        },
+        "recall": {
+          "cool": 0.3333333333333333,
+          "neutral": 0.5134474327628362,
+          "warm": 0.3764705882352941
+        },
+        "rows": 608
+      },
+      "outer_folds": [
+        {
+          "best_by_mean": "logistic_regression(C=0.01, class_weight=balanced)",
+          "chosen": "logistic_regression(C=0.01, class_weight=balanced)",
+          "chosen_mean_f1": 0.37553687745416997,
+          "test_day": "2025-06-30"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=6, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "random_forest(max_depth=6, min_samples_leaf=1, class_weight=balanced)",
+          "chosen_mean_f1": 0.36223949611065737,
+          "test_day": "2025-07-03"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.383880236185902,
+          "test_day": "2025-07-04"
+        },
+        {
+          "best_by_mean": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3802516060128911,
+          "test_day": "2025-07-06"
+        },
+        {
+          "best_by_mean": "logistic_regression(C=0.1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=0.1, class_weight=balanced)",
+          "chosen_mean_f1": 0.3923992186720478,
+          "test_day": "2025-07-07"
+        }
+      ],
+      "screening": "Descartado"
+    },
+    "ta_x_clo": {
+      "added_features": [
+        "ta_x_clo"
+      ],
+      "by_day": {
+        "2025-06-30": {
+          "delta": 0.014187068424356575,
+          "f1_macro": 0.4222222222222222,
+          "f1_macro_reference": 0.40803515379786565,
+          "improves": true,
+          "rows": 39
+        },
+        "2025-07-03": {
+          "delta": 0.0174453405000915,
+          "f1_macro": 0.4138228835097589,
+          "f1_macro_reference": 0.3963775430096674,
+          "improves": true,
+          "rows": 152
+        },
+        "2025-07-04": {
+          "delta": 0.008760237345711075,
+          "f1_macro": 0.3838347752109466,
+          "f1_macro_reference": 0.37507453786523554,
+          "improves": true,
+          "rows": 164
+        },
+        "2025-07-06": {
+          "delta": -0.010636297493321512,
+          "f1_macro": 0.3695956160241875,
+          "f1_macro_reference": 0.380231913517509,
+          "improves": false,
+          "rows": 132
+        },
+        "2025-07-07": {
+          "delta": -0.009152102031176113,
+          "f1_macro": 0.3721264367816092,
+          "f1_macro_reference": 0.38127853881278534,
+          "improves": false,
+          "rows": 121
+        }
+      },
+      "days_improved": 3,
+      "decision": "Descartado",
+      "delta": 0.001572489135321098,
+      "delta_across_days": {
+        "max": 0.0174453405000915,
+        "mean": 0.004120849349132305,
+        "min": -0.010636297493321512,
+        "std": 0.013175160085924705
+      },
+      "delta_ci": {
+        "groups": 592,
+        "high": 0.026827779241068484,
+        "level": 0.95,
+        "low": -0.024019486698832995,
+        "replicates": 10000
+      },
+      "f1_macro": 0.39096894270792704,
+      "f1_macro_across_days": {
+        "max": 0.4222222222222222,
+        "mean": 0.3923203867497449,
+        "min": 0.3695956160241875,
+        "std": 0.024252286255988416
+      },
+      "f1_macro_reference": 0.38939645357260594,
+      "improvement_demonstrated": false,
+      "metrics": {
+        "accuracy": 0.48355263157894735,
+        "balanced_accuracy": 0.4089568809121899,
+        "confusion_matrix": {
+          "labels": [
+            "cool",
+            "neutral",
+            "warm"
+          ],
+          "rows_true_columns_predicted": [
+            [
+              42,
+              49,
+              23
+            ],
+            [
+              121,
+              226,
+              62
+            ],
+            [
+              27,
+              32,
+              26
+            ]
+          ]
+        },
+        "f1_macro": 0.39096894270792704,
+        "opposite_errors": 50,
+        "precision": {
+          "cool": 0.22105263157894736,
+          "neutral": 0.7361563517915309,
+          "warm": 0.23423423423423423
+        },
+        "recall": {
+          "cool": 0.3684210526315789,
+          "neutral": 0.5525672371638142,
+          "warm": 0.3058823529411765
+        },
+        "rows": 608
+      },
+      "outer_folds": [
+        {
+          "best_by_mean": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3765568007946233,
+          "test_day": "2025-06-30"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.35142720312652015,
+          "test_day": "2025-07-03"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3800418503295898,
+          "test_day": "2025-07-04"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=20, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3775470223594068,
+          "test_day": "2025-07-06"
+        },
+        {
+          "best_by_mean": "logistic_regression(C=0.1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=0.1, class_weight=balanced)",
+          "chosen_mean_f1": 0.3962610403540158,
+          "test_day": "2025-07-07"
+        }
+      ],
+      "screening": "Descartado"
+    },
+    "ta_x_rh": {
+      "added_features": [
+        "ta_x_rh"
+      ],
+      "by_day": {
+        "2025-06-30": {
+          "delta": 0.02981795354676714,
+          "f1_macro": 0.4378531073446328,
+          "f1_macro_reference": 0.40803515379786565,
+          "improves": true,
+          "rows": 39
+        },
+        "2025-07-03": {
+          "delta": -0.08290089619968721,
+          "f1_macro": 0.31347664680998016,
+          "f1_macro_reference": 0.3963775430096674,
+          "improves": false,
+          "rows": 152
+        },
+        "2025-07-04": {
+          "delta": 0.007511592293710179,
+          "f1_macro": 0.3825861301589457,
+          "f1_macro_reference": 0.37507453786523554,
+          "improves": true,
+          "rows": 164
+        },
+        "2025-07-06": {
+          "delta": -0.019770396703100657,
+          "f1_macro": 0.36046151681440836,
+          "f1_macro_reference": 0.380231913517509,
+          "improves": false,
+          "rows": 132
+        },
+        "2025-07-07": {
+          "delta": -0.009152102031176113,
+          "f1_macro": 0.3721264367816092,
+          "f1_macro_reference": 0.38127853881278534,
+          "improves": false,
+          "rows": 121
+        }
+      },
+      "days_improved": 2,
+      "decision": "Descartado",
+      "delta": -0.01647974152439441,
+      "delta_across_days": {
+        "max": 0.02981795354676714,
+        "mean": -0.014898769818697333,
+        "min": -0.08290089619968721,
+        "std": 0.04237586521255289
+      },
+      "delta_ci": {
+        "groups": 592,
+        "high": 0.013422041076304217,
+        "level": 0.95,
+        "low": -0.04637626071399017,
+        "replicates": 10000
+      },
+      "f1_macro": 0.37291671204821153,
+      "f1_macro_across_days": {
+        "max": 0.4378531073446328,
+        "mean": 0.3733007675819152,
+        "min": 0.31347664680998016,
+        "std": 0.044716812739345566
+      },
+      "f1_macro_reference": 0.38939645357260594,
+      "improvement_demonstrated": false,
+      "metrics": {
+        "accuracy": 0.4753289473684211,
+        "balanced_accuracy": 0.3894628344195741,
+        "confusion_matrix": {
+          "labels": [
+            "cool",
+            "neutral",
+            "warm"
+          ],
+          "rows_true_columns_predicted": [
+            [
+              45,
+              43,
+              26
+            ],
+            [
+              118,
+              225,
+              66
+            ],
+            [
+              24,
+              42,
+              19
+            ]
+          ]
+        },
+        "f1_macro": 0.37291671204821153,
+        "opposite_errors": 50,
+        "precision": {
+          "cool": 0.24064171122994651,
+          "neutral": 0.7258064516129032,
+          "warm": 0.17117117117117117
+        },
+        "recall": {
+          "cool": 0.39473684210526316,
+          "neutral": 0.5501222493887531,
+          "warm": 0.2235294117647059
+        },
+        "rows": 608
+      },
+      "outer_folds": [
+        {
+          "best_by_mean": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.38004157909818526,
+          "test_day": "2025-06-30"
+        },
+        {
+          "best_by_mean": "gradient_boosting(learning_rate=0.1, max_depth=3, max_iter=300, class_weight=balanced)",
+          "chosen": "gradient_boosting(learning_rate=0.1, max_depth=3, max_iter=300, class_weight=balanced)",
+          "chosen_mean_f1": 0.37131670358907276,
+          "test_day": "2025-07-03"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.38451413754156005,
+          "test_day": "2025-07-04"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=5, class_weight=balanced)",
+          "chosen": "random_forest(max_depth=3, min_samples_leaf=5, class_weight=balanced)",
+          "chosen_mean_f1": 0.3957908970170545,
+          "test_day": "2025-07-06"
+        },
+        {
+          "best_by_mean": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3957643051641384,
+          "test_day": "2025-07-07"
+        }
+      ],
+      "screening": "Descartado"
+    },
+    "ta_x_vel": {
+      "added_features": [
+        "ta_x_vel"
+      ],
+      "by_day": {
+        "2025-06-30": {
+          "delta": 0.025298179535467702,
+          "f1_macro": 0.43333333333333335,
+          "f1_macro_reference": 0.40803515379786565,
+          "improves": true,
+          "rows": 39
+        },
+        "2025-07-03": {
+          "delta": 0.031663551698093984,
+          "f1_macro": 0.42804109470776136,
+          "f1_macro_reference": 0.3963775430096674,
+          "improves": true,
+          "rows": 152
+        },
+        "2025-07-04": {
+          "delta": -0.024964526864135417,
+          "f1_macro": 0.3501100110011001,
+          "f1_macro_reference": 0.37507453786523554,
+          "improves": false,
+          "rows": 164
+        },
+        "2025-07-06": {
+          "delta": -0.010636297493321512,
+          "f1_macro": 0.3695956160241875,
+          "f1_macro_reference": 0.380231913517509,
+          "improves": false,
+          "rows": 132
+        },
+        "2025-07-07": {
+          "delta": 0.0,
+          "f1_macro": 0.38127853881278534,
+          "f1_macro_reference": 0.38127853881278534,
+          "improves": false,
+          "rows": 121
+        }
+      },
+      "days_improved": 2,
+      "decision": "Descartado",
+      "delta": 0.0007562612698821525,
+      "delta_across_days": {
+        "max": 0.031663551698093984,
+        "mean": 0.004272181375220951,
+        "min": -0.024964526864135417,
+        "std": 0.02391484450790596
+      },
+      "delta_ci": {
+        "groups": 592,
+        "high": 0.027769580977040034,
+        "level": 0.95,
+        "low": -0.026248264647305265,
+        "replicates": 10000
+      },
+      "f1_macro": 0.3901527148424881,
+      "f1_macro_across_days": {
+        "max": 0.43333333333333335,
+        "mean": 0.39247171877583353,
+        "min": 0.3501100110011001,
+        "std": 0.036667320902997014
+      },
+      "f1_macro_reference": 0.38939645357260594,
+      "improvement_demonstrated": false,
+      "metrics": {
+        "accuracy": 0.4967105263157895,
+        "balanced_accuracy": 0.4039343528772552,
+        "confusion_matrix": {
+          "labels": [
+            "cool",
+            "neutral",
+            "warm"
+          ],
+          "rows_true_columns_predicted": [
+            [
+              38,
+              51,
+              25
+            ],
+            [
+              100,
+              239,
+              70
+            ],
+            [
+              18,
+              42,
+              25
+            ]
+          ]
+        },
+        "f1_macro": 0.3901527148424881,
+        "opposite_errors": 43,
+        "precision": {
+          "cool": 0.24358974358974358,
+          "neutral": 0.7198795180722891,
+          "warm": 0.20833333333333334
+        },
+        "recall": {
+          "cool": 0.3333333333333333,
+          "neutral": 0.5843520782396088,
+          "warm": 0.29411764705882354
+        },
+        "rows": 608
+      },
+      "outer_folds": [
+        {
+          "best_by_mean": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.38109843957373324,
+          "test_day": "2025-06-30"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "random_forest(max_depth=None, min_samples_leaf=1, class_weight=balanced)",
+          "chosen_mean_f1": 0.3741886825917522,
+          "test_day": "2025-07-03"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=6, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "random_forest(max_depth=6, min_samples_leaf=1, class_weight=balanced)",
+          "chosen_mean_f1": 0.40188047059598025,
+          "test_day": "2025-07-04"
+        },
+        {
+          "best_by_mean": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.38225505764517037,
+          "test_day": "2025-07-06"
+        },
+        {
+          "best_by_mean": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.40018939212729787,
+          "test_day": "2025-07-07"
+        }
+      ],
+      "screening": "Descartado"
+    },
+    "vapour_pressure": {
+      "added_features": [
+        "vapour_pressure"
+      ],
+      "by_day": {
+        "2025-06-30": {
+          "delta": 0.0185185185185186,
+          "f1_macro": 0.42655367231638425,
+          "f1_macro_reference": 0.40803515379786565,
+          "improves": true,
+          "rows": 39
+        },
+        "2025-07-03": {
+          "delta": 0.0174453405000915,
+          "f1_macro": 0.4138228835097589,
+          "f1_macro_reference": 0.3963775430096674,
+          "improves": true,
+          "rows": 152
+        },
+        "2025-07-04": {
+          "delta": 0.008760237345711075,
+          "f1_macro": 0.3838347752109466,
+          "f1_macro_reference": 0.37507453786523554,
+          "improves": true,
+          "rows": 164
+        },
+        "2025-07-06": {
+          "delta": -0.004368911741518988,
+          "f1_macro": 0.37586300177599,
+          "f1_macro_reference": 0.380231913517509,
+          "improves": false,
+          "rows": 132
+        },
+        "2025-07-07": {
+          "delta": -0.018289493429373804,
+          "f1_macro": 0.36298904538341153,
+          "f1_macro_reference": 0.38127853881278534,
+          "improves": false,
+          "rows": 121
+        }
+      },
+      "days_improved": 3,
+      "decision": "Descartado",
+      "delta": 0.0029205550579102235,
+      "delta_across_days": {
+        "max": 0.0185185185185186,
+        "mean": 0.004413138238685677,
+        "min": -0.018289493429373804,
+        "std": 0.015654322133021134
+      },
+      "delta_ci": {
+        "groups": 592,
+        "high": 0.03638687577403287,
+        "level": 0.95,
+        "low": -0.030648641491684503,
+        "replicates": 10000
+      },
+      "f1_macro": 0.39231700863051616,
+      "f1_macro_across_days": {
+        "max": 0.42655367231638425,
+        "mean": 0.39261267563929825,
+        "min": 0.36298904538341153,
+        "std": 0.026631873541570664
+      },
+      "f1_macro_reference": 0.38939645357260594,
+      "improvement_demonstrated": false,
+      "metrics": {
+        "accuracy": 0.48519736842105265,
+        "balanced_accuracy": 0.4098856734818493,
+        "confusion_matrix": {
+          "labels": [
+            "cool",
+            "neutral",
+            "warm"
+          ],
+          "rows_true_columns_predicted": [
+            [
+              45,
+              46,
+              23
+            ],
+            [
+              131,
+              226,
+              52
+            ],
+            [
+              30,
+              31,
+              24
+            ]
+          ]
+        },
+        "f1_macro": 0.39231700863051616,
+        "opposite_errors": 53,
+        "precision": {
+          "cool": 0.21844660194174756,
+          "neutral": 0.7458745874587459,
+          "warm": 0.24242424242424243
+        },
+        "recall": {
+          "cool": 0.39473684210526316,
+          "neutral": 0.5525672371638142,
+          "warm": 0.2823529411764706
+        },
+        "rows": 608
+      },
+      "outer_folds": [
+        {
+          "best_by_mean": "random_forest(max_depth=3, min_samples_leaf=5, class_weight=balanced)",
+          "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3766590793664887,
+          "test_day": "2025-06-30"
+        },
+        {
+          "best_by_mean": "gradient_boosting(learning_rate=0.1, max_depth=2, max_iter=300, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.34414476925919646,
+          "test_day": "2025-07-03"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=None, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "logistic_regression(C=10.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3820433825984226,
+          "test_day": "2025-07-04"
+        },
+        {
+          "best_by_mean": "random_forest(max_depth=6, min_samples_leaf=1, class_weight=balanced)",
+          "chosen": "random_forest(max_depth=6, min_samples_leaf=1, class_weight=balanced)",
+          "chosen_mean_f1": 0.3825703177030124,
+          "test_day": "2025-07-06"
+        },
+        {
+          "best_by_mean": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen": "logistic_regression(C=1.0, class_weight=balanced)",
+          "chosen_mean_f1": 0.3968750356042352,
+          "test_day": "2025-07-07"
+        }
+      ],
+      "screening": "Descartado"
+    }
+  }
+}

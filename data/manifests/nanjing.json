@@ -1,0 +1,58 @@
+{
+  "counted": {
+    ".jpg": 1406
+  },
+  "files": [
+    {
+      "path": "July 3/202573.csv",
+      "sha256": "98f23a401e02cae6588053087131a325c06dd5ce4606aff77b72abf64214d52f",
+      "size": 258702
+    },
+    {
+      "path": "July 3/3号汇总.xlsx",
+      "sha256": "80c5a35615716ce0b2b413a7fa1387eab5474664b07b0f19bde765a8fb08ad50",
+      "size": 65477
+    },
+    {
+      "path": "July 4/202574.csv",
+      "sha256": "0f906cc1b86e6785a4cddb1da16343cc61a6cc70c9de42b16e8710b6b0347424",
+      "size": 270484
+    },
+    {
+      "path": "July 4/4号汇总.xlsx",
+      "sha256": "00ce2c758e1493c8895211536c2ab781aad4202ae8bc615df2e5f314fd7ee109",
+      "size": 53287
+    },
+    {
+      "path": "July 6/202576.csv",
+      "sha256": "7c27f0a4c0c876073043673380e484dd8804f9e0fa4016c4525d149f2ee8862a",
+      "size": 238656
+    },
+    {
+      "path": "July 6/6号汇总.xlsx",
+      "sha256": "0a8c8dfbc19ebb36b389d05f9d38f0af0cc3d108e16e221a15535435fdbaa6c6",
+      "size": 79134
+    },
+    {
+      "path": "July 7/202577.csv",
+      "sha256": "9a054a4cf36799e220e860dc9896ae7da58b9917f2ede3f9641b2430a50c0371",
+      "size": 196563
+    },
+    {
+      "path": "July 7/7号汇总.xlsx",
+      "sha256": "a73762784588943934ded25ec3e1c82eb7ae468c9413ec0ca6654f1bb1a5446a",
+      "size": 34359
+    },
+    {
+      "path": "June 30/2025630.csv",
+      "sha256": "0d874b182fc2aa5348f633f2758b4d404f6242efdcf296424806d0fdb21592d7",
+      "size": 232986
+    },
+    {
+      "path": "June 30/6月30号汇总.xlsx",
+      "sha256": "a5d27c6e4dbcfaebb1778ec7296e91b013142e84ad51b31ddee9def596aa4148",
+      "size": 80936
+    }
+  ],
+  "root": "data/raw/Data/Data"
+}

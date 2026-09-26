@@ -1,0 +1,64 @@
+{
+  "per_day": {
+    "2025-06-30": {
+      "annotation_rows": 4,
+      "clean_rows": 159,
+      "data_rows": 160,
+      "excluded_no_air_conditioning": 0,
+      "excluded_no_logger_data": 1,
+      "excluded_zero_speed": 0,
+      "speed_readings_discarded": 0,
+      "windows_repaired": 1
+    },
+    "2025-07-03": {
+      "annotation_rows": 10,
+      "clean_rows": 183,
+      "data_rows": 184,
+      "excluded_no_air_conditioning": 0,
+      "excluded_no_logger_data": 0,
+      "excluded_zero_speed": 1,
+      "speed_readings_discarded": 2,
+      "windows_repaired": 3
+    },
+    "2025-07-04": {
+      "annotation_rows": 7,
+      "clean_rows": 199,
+      "data_rows": 200,
+      "excluded_no_air_conditioning": 0,
+      "excluded_no_logger_data": 0,
+      "excluded_zero_speed": 1,
+      "speed_readings_discarded": 0,
+      "windows_repaired": 4
+    },
+    "2025-07-06": {
+      "annotation_rows": 12,
+      "clean_rows": 194,
+      "data_rows": 200,
+      "excluded_no_air_conditioning": 6,
+      "excluded_no_logger_data": 0,
+      "excluded_zero_speed": 0,
+      "speed_readings_discarded": 0,
+      "windows_repaired": 1
+    },
+    "2025-07-07": {
+      "annotation_rows": 5,
+      "clean_rows": 147,
+      "data_rows": 150,
+      "excluded_no_air_conditioning": 0,
+      "excluded_no_logger_data": 2,
+      "excluded_zero_speed": 1,
+      "speed_readings_discarded": 0,
+      "windows_repaired": 4
+    }
+  },
+  "total": {
+    "annotation_rows": 38,
+    "clean_rows": 882,
+    "data_rows": 894,
+    "excluded_no_air_conditioning": 6,
+    "excluded_no_logger_data": 3,
+    "excluded_zero_speed": 3,
+    "speed_readings_discarded": 2,
+    "windows_repaired": 13
+  }
+}
