@@ -15,9 +15,9 @@ describe("Footer", () => {
         expect(screen.getByText(item.text)).toBeInTheDocument();
       }
     }
-    expect(screen.getByRole("link", { name: "github.com/MoliNoni" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "github.com/MoliNoni/Gemetro-Digital" })).toHaveAttribute(
       "href",
-      "https://github.com/MoliNoni",
+      "https://github.com/MoliNoni/Gemetro-Digital",
     );
   });
 

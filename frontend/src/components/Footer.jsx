@@ -33,14 +33,14 @@ export default function Footer() {
                 ))}
               </ul>
             </section>
-        ))}
-      </div>
-      <p className="app-footer-repo">
-        Detalle de cada fuente, licencias y metodología en el repositorio:{" "}
-        <a href={REPOSITORY_URL} target="_blank" rel="noreferrer noopener">
-          github.com/MoliNoni
-        </a>
-      </p>
+          ))}
+        </div>
+        <p className="app-footer-repo">
+          Detalle de cada fuente, licencias y metodología en el repositorio:{" "}
+          <a href={REPOSITORY_URL} target="_blank" rel="noreferrer noopener">
+            github.com/MoliNoni/Gemetro-Digital
+          </a>
+        </p>
       </details>
     </footer>
   );

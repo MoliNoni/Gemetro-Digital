@@ -1,19 +1,23 @@
 // Sources shown in the page footer (feedback round 4, direction 2026-09-26). Only sources the
 // project actually uses; every entry is taken from DATA_SOURCES.md / README.md
-// ("Fuentes y atribución") — nothing here is new or unverified. Grouped by what each source
+// ("Fuentes y atribución"); the one entry not independently verified (the Nanjing download
+// link) says so in its own text. Grouped by what each source
 // feeds: the ML training data, the Medellín scenario inputs, the thermal simulator's
 // constants, the normative baseline and the external reference drawn on the τr chart.
 
-export const REPOSITORY_URL = "https://github.com/MoliNoni";
+// The project repository (documentation and source details) and the author's GitHub profile
+// (header icon).
+export const REPOSITORY_URL = "https://github.com/MoliNoni/Gemetro-Digital";
+export const PROFILE_URL = "https://github.com/MoliNoni";
 
 export const SOURCE_GROUPS = [
   {
     title: "Modelo de confort (entrenamiento y evaluación)",
     items: [
       {
-        // Download link supplied by the direction (2026-09-26) as the one published with the
-        // Nanjing study; see DATA_SOURCES.md S-09 addendum.
-        text: "Encuestas de sensación térmica y mediciones en vagones del metro de Nanjing (junio–julio de 2025), publicadas por los autores del estudio en Baidu Netdisk (código de extracción 4d84).",
+        // Download link supplied by the direction (2026-09-26); it could not be opened
+        // independently (Baidu account required) — see DATA_SOURCES.md S-09 addendum.
+        text: "Encuestas de sensación térmica y mediciones en vagones del metro de Nanjing (junio–julio de 2025), descargadas del enlace de Baidu Netdisk asociado al estudio (código de extracción 4d84; no verificado de forma independiente).",
         url: "https://pan.baidu.com/s/1o3wor2rxNiptwnvJ2fthag?pwd=4d84",
       },
       {

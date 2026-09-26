@@ -4,7 +4,7 @@
 // model limitation live in the "¿Qué estoy viendo?" panel (AboutPanel), reachable from its
 // own floating bubble (feedback round 2, direction 2026-09-25) — never more than one click
 // away, nothing here is hidden, only moved out of the header's fixed budget.
-import { REPOSITORY_URL } from "../domain/sources.js";
+import { PROFILE_URL } from "../domain/sources.js";
 
 // GitHub mark (feedback round 5): links to the author's GitHub profile, top-right.
 const GITHUB_MARK =
@@ -27,7 +27,7 @@ export default function Header() {
         <span className="status-badge-experimental">Modelo experimental</span>
         <a
           className="header-github"
-          href={REPOSITORY_URL}
+          href={PROFILE_URL}
           target="_blank"
           rel="noreferrer noopener"
           aria-label="Perfil de GitHub"

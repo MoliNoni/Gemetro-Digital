@@ -27,7 +27,7 @@ describe("AboutPanel", () => {
     expect(screen.getByText(/validación empírica/)).toBeInTheDocument();
     expect(screen.getByText(/encuestas reales del metro de Nanjing/)).toBeInTheDocument();
     expect(screen.getByText(/"Fuera del dominio"/)).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "repositorio" })[0]).toHaveAttribute("href", "https://github.com/MoliNoni");
+    expect(screen.getAllByRole("link", { name: "repositorio" })[0]).toHaveAttribute("href", "https://github.com/MoliNoni/Gemetro-Digital");
   });
 
   test("no confidence, probability or accuracy figure is shown", () => {
