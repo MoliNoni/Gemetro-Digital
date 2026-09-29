@@ -7,6 +7,7 @@ import Header from "./components/Header.jsx";
 import ModeSwitch from "./components/ModeSwitch.jsx";
 import SimulationMode from "./components/SimulationMode.jsx";
 import ApiErrorNotice from "./components/ApiErrorNotice.jsx";
+import { AppSkeleton } from "./components/LoadingSkeletons.jsx";
 import { roundHalf } from "./domain/format.js";
 import { findPresetById, isCustomConfiguration, toScenarioParams } from "./domain/presets.js";
 import { useConfig } from "./hooks/useConfig.js";
@@ -83,13 +84,13 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Header />
+      <Header apiStatus={configStatus} />
       {/* Feedback round 2 (direction 2026-09-25): "¿Qué estoy viendo?" moves back out of the
           header into a compact floating bubble, fixed bottom-right, so it never competes
           with the header's fixed budget and stays reachable while scrolling. */}
       <AboutPanel open={aboutOpen} onToggle={setAboutOpen} />
 
-      {configStatus === "loading" && <p role="status">Conectando con el servicio…</p>}
+      {configStatus === "loading" && <AppSkeleton />}
       {configStatus === "error" && (
         <ApiErrorNotice error={configError} httpStatus={configHttpStatus} onRetry={refetchConfig} />
       )}

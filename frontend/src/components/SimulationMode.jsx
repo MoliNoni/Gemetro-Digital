@@ -5,6 +5,7 @@ import ConditionsPanel from "./ConditionsPanel.jsx";
 import ScenarioControls from "./ScenarioControls.jsx";
 import SensitivityChart from "./SensitivityChart.jsx";
 import DailyProfileChart from "./DailyProfileChart.jsx";
+import { ChartSkeleton, ChartsColumnSkeleton, ResultsColumnSkeleton } from "./LoadingSkeletons.jsx";
 import ApiErrorNotice from "./ApiErrorNotice.jsx";
 // Simulation mode (the previous free-parameter simulator, G-02/G-03; three-column visual
 // redesign): controls live in the left column, the wagon + central results + grouped
@@ -45,16 +46,19 @@ export default function SimulationMode({
       {/* One col-center wrapper at most (feedback round 5): the grid makes the center and
           right columns span the mode-switch row, so two sibling col-center blocks would
           overlap instead of stacking. */}
-      {!record && (scenarioState.status === "loading" || scenarioState.error) && (
+      {!record && scenarioState.status === "loading" && (
+        <>
+          <ResultsColumnSkeleton label="Calculando…" />
+          <ChartsColumnSkeleton withDailyProfile />
+        </>
+      )}
+      {!record && scenarioState.error && (
         <div className="col-center">
-          {scenarioState.status === "loading" && <p role="status">Calculando…</p>}
-          {scenarioState.error && (
-            <ApiErrorNotice
-              error={scenarioState.error}
-              httpStatus={scenarioState.httpStatus}
-              onRetry={scenarioState.retry}
-            />
-          )}
+          <ApiErrorNotice
+            error={scenarioState.error}
+            httpStatus={scenarioState.httpStatus}
+            onRetry={scenarioState.retry}
+          />
         </div>
       )}
 
@@ -82,7 +86,7 @@ export default function SimulationMode({
             <SensitivityChart record={record} pragueReferenceS={config.prague_tau_reference_s} />
 
             {dayProfileState.status === "loading" && !dayProfileState.points && (
-              <p role="status">Calculando el perfil diario…</p>
+              <ChartSkeleton label="Calculando el perfil diario…" />
             )}
             {dayProfileState.error && (
               <ApiErrorNotice

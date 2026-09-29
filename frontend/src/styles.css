@@ -908,3 +908,77 @@ input[type="checkbox"] { accent-color: var(--fg); }
   color: var(--muted);
 }
 .conditions-fixed .row dt, .conditions-fixed .row dd { color: var(--muted); }
+
+/* Loading skeletons: neutral blocks on the existing panel tokens with a subtle shimmer, so
+   they read as "content coming" without adding a new color. Same square corners as panels. */
+
+.skeleton {
+  display: block;
+  background: var(--line);
+  border-radius: var(--radius);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--fg) 7%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+.skeleton-line { height: 0.9em; }
+.skeleton-circle { border-radius: 50%; aspect-ratio: 1; }
+
+@keyframes skeleton-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* Static under reduced motion: same blocks, no shimmer. */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; background-image: none; }
+}
+
+/* Sizes mirror the real blocks they stand in for (no layout shift). */
+.skeleton-segmented { width: 100%; height: 34px; }
+.skeleton-hour-strip { align-items: stretch; }
+.skeleton-hour-chip { flex: 1 1 0; min-width: 0; height: 44px; }
+.skeleton-wagon { width: 100%; aspect-ratio: 400 / 210; max-width: 900px; }
+.skeleton-value { width: 55%; height: 1.9em; margin: 6px 0; }
+.skeleton-chart { width: 100%; height: 220px; }
+.skeleton-conditions-group { display: flex; flex-direction: column; gap: 8px; }
+.skeleton-region { min-width: 0; }
+
+/* Header notice while the API (Render free tier) cold-starts: same discreet bordered-badge
+   language as the "Modelo experimental" badge, with a pulsing dot instead of a spinner. */
+.status-badge-wakeup {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  border-radius: var(--radius);
+  padding: 2px 8px;
+  font-size: 0.78em;
+  font-weight: 600;
+}
+.status-badge-wakeup-hint { font-weight: 400; }
+.wakeup-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tone-warn-fg);
+  animation: wakeup-pulse 1.2s ease-in-out infinite;
+}
+@keyframes wakeup-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wakeup-dot { animation: none; }
+}
+@media (max-width: 560px) {
+  .app-header-status { flex-wrap: wrap; }
+  .status-badge-wakeup { white-space: normal; }
+}

@@ -5,6 +5,7 @@ import ConditionsPanel from "./ConditionsPanel.jsx";
 import MetroCarVisualization from "./MetroCarVisualization.jsx";
 import WagonIndicators from "./WagonIndicators.jsx";
 import SensitivityChart from "./SensitivityChart.jsx";
+import { ChartsColumnSkeleton, HourStripSkeleton, ResultsColumnSkeleton } from "./LoadingSkeletons.jsx";
 import ApiErrorNotice from "./ApiErrorNotice.jsx";
 import InfoTooltip from "./InfoTooltip.jsx";
 import { LINE_TOOLTIP } from "../domain/glossary.js";
@@ -34,6 +35,8 @@ export default function GuidedMode({ config, selection }) {
 
   const entry = data ? entryByHour(data.entries, selectedHour) : null;
   const dimmed = status === "updating";
+  // Skeletons only on the first load; a refetch keeps the previous data dimmed instead.
+  const loadingFirst = status === "loading" && !data;
 
   return (
     <>
@@ -99,9 +102,21 @@ export default function GuidedMode({ config, selection }) {
           </>
         )}
 
-        {status === "loading" && !data && <p role="status">Calculando…</p>}
+        {loadingFirst && (
+          <>
+            <p className="field-label">Horas</p>
+            <HourStripSkeleton />
+          </>
+        )}
         {error && <ApiErrorNotice error={error} httpStatus={httpStatus} onRetry={retry} />}
       </div>
+
+      {loadingFirst && (
+        <>
+          <ResultsColumnSkeleton label="Calculando…" />
+          <ChartsColumnSkeleton />
+        </>
+      )}
 
       {data && entry && (
         <>
