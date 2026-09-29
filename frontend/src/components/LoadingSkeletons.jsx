@@ -95,6 +95,8 @@ export function ChartsColumnSkeleton({ withDailyProfile = false }) {
 
 // Initial /config load: the whole layout grid (mode switch slot + guided mode shape, since
 // guided is the default view).
+// No status text here: during the initial /config load the header's wake-up notice is the
+// single announcement, so screen readers do not hear two loading messages at once.
 export function AppSkeleton() {
   return (
     <div className="layout-grid" aria-busy="true">
@@ -102,7 +104,7 @@ export function AppSkeleton() {
         <Skeleton className="skeleton-segmented" />
       </div>
       <GuidedControlsSkeleton />
-      <ResultsColumnSkeleton label="Conectando con el servicio…" />
+      <ResultsColumnSkeleton />
       <ChartsColumnSkeleton />
     </div>
   );

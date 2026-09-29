@@ -60,14 +60,13 @@ describe("initial config load", () => {
     const { container } = render(<App />);
 
     expect(screen.getByText(WAKEUP)).toBeInTheDocument();
-    expect(screen.getByText("Conectando con el servicio…")).toBeInTheDocument();
+    expect(screen.getAllByRole("status")).toHaveLength(1);
     expect(container.querySelector(".layout-grid[aria-busy='true']")).toBeInTheDocument();
     expect(container.querySelectorAll(".skeleton").length).toBeGreaterThan(0);
 
     config.resolve(CONFIG);
     await screen.findByRole("group", { name: "Modo del simulador" });
     expect(screen.queryByText(WAKEUP)).not.toBeInTheDocument();
-    expect(screen.queryByText("Conectando con el servicio…")).not.toBeInTheDocument();
     expect(container.querySelector(".layout-grid[aria-busy='true']")).not.toBeInTheDocument();
   });
 
