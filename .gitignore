@@ -37,8 +37,9 @@ frontend/dist/
 .env.*
 !.env.example
 
-# Documentation is not versioned: every Markdown file, README included, stays local.
+# Documentation is not versioned: every Markdown file stays local, except the README.
 *.md
+!README.md
 
 # OS / editors
 .DS_Store
